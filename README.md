@@ -2,6 +2,16 @@
 
 Aplicativo do quarto semestre integrado à API ASP.NET Core e ao banco SQL Server do Zero Frame. O site e o app usam as mesmas contas, produtos, variações, endereços, favoritos, carrinhos e pedidos.
 
+## ▶️ Abrir o site funcionando
+
+Depois de preparar o banco conforme as instruções abaixo, abra a solução `API/ZeroFrame.slnx` no Visual Studio. Defina **ZeroFrame.API** como projeto de inicialização, selecione **https** e clique no play. Com a aplicação rodando, clique no botão:
+
+[![Abrir o site Zero Frame](https://img.shields.io/badge/Abrir_o_site-Zero_Frame-49312e?style=for-the-badge)](https://localhost:7291/desktop/index.html)
+
+[Abrir o site no navegador](https://localhost:7291/desktop/index.html) · [Abrir o Swagger](https://localhost:7291/swagger)
+
+O endereço `localhost` acessa a aplicação no computador de quem clica. Cada integrante precisa iniciar a API na própria máquina para usar este botão. Para testar com um celular na mesma rede, siga a configuração de IP abaixo.
+
 ## 📌 O que foi reunido
 
 | Pasta | Conteúdo |
