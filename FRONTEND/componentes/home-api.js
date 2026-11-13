@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         containers.forEach((container) => ZeroFrameApi.mostrarCarregando(container, "Carregando produtos..."));
         const produtos = await ProdutoService.listar();
-        if (!produtos.length) return;
+        if (!produtos.length) {
+            containers.forEach((container) => ZeroFrameApi.mostrarMensagem(container, "Nenhum produto disponível."));
+            return;
+        }
 
         const recomendados = produtos.slice(0, 7);
         const originais = produtos.filter((produto) => String(produto.origem || produto.Origem || "").toLowerCase().includes("original")).slice(0, 7);

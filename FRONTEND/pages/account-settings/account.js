@@ -8,6 +8,9 @@
     const logout = document.getElementById("logout");
 
     preencherDadosUsuario();
+    document.getElementById("editarInformacoes")?.addEventListener("click", () => {
+        personalInfoForm?.querySelector("input[name='fullName']")?.focus();
+    });
 
     function showNotice(message, type = "success") {
         if (!pageNotice) return;
@@ -71,8 +74,15 @@
             event.preventDefault();
 
             try {
-                const usuarioAtualizado = await UsuarioService.atualizarMeusDados(montarDadosBase());
+                const dados = montarDadosBase();
+                const senhaAtual = personalInfoForm.querySelector("input[name='emailPassword']")?.value || "";
+                if (dados.email !== getUsuarioAtual().email && !senhaAtual) {
+                    showNotice("Informe a senha atual para alterar o e-mail.", "error");
+                    return;
+                }
+                const usuarioAtualizado = await UsuarioService.atualizarMeusDados({ ...dados, ...(senhaAtual ? { senhaAtual } : {}) });
                 atualizarSessaoUsuario(usuarioAtualizado || {});
+                personalInfoForm.querySelector("input[name='emailPassword']").value = "";
                 showNotice("Dados atualizados com sucesso.", "success");
             } catch (error) {
                 showNotice(ZeroFrameApi.tratarErro(error, "Nao foi possivel atualizar seus dados."), "error");

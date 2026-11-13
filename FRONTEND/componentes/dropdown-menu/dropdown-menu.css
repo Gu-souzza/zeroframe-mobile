@@ -115,6 +115,10 @@
     color: #F5EBE0;
 }
 
+.dropdown-header .dropdown-login-link {
+    font-size: inherit;
+}
+
 /* Conteúdo do dropdown (menu quando aberto) */
 .dropdown-content {
     /* Inicialmente oculto */

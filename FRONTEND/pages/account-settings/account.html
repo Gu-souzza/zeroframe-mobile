@@ -23,7 +23,6 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Scripts dos componentes -->
-    <script type="text/babel" src="../../componentes/carrossel-categorias/carrossel-categorias.js"></script>
     <script type="text/javascript" src="../../componentes/theme-toggle.js" defer></script>
     <script type="text/javascript" src="../../componentes/dropdown-menu/dropdown-menu.js" defer></script>
     <script type="text/javascript" src="../../componentes/api.js" defer></script>
@@ -35,7 +34,7 @@
     <script type="text/javascript" src="../../componentes/mobile-menu/mobile-menu.js" defer></script>
     <script type="text/javascript" src="./account.js" defer></script>
     <!-- Favicon do site -->
-    <link rel="icon" href="./assets/logo zf.png" type="image/png">
+    <link rel="icon" href="../../assets/logo zf.png" type="image/png">
     <title>Zero Frame</title>
 </head>
 
@@ -138,7 +137,7 @@
                                 <span class="card-eyebrow">Informações Pessoais</span>
                                 <h2>Dados do perfil</h2>
                             </div>
-                            <button class="btn-secondary" type="button">Editar informações</button>
+                            <button class="btn-secondary" id="editarInformacoes" type="button">Editar informações</button>
                         </div>
                         <form id="personalInfoForm" class="form-grid">
                             <label>
@@ -152,6 +151,10 @@
                             <label>
                                 <span>Telefone</span>
                                 <input type="tel" name="phone" placeholder="(11) 99999-9999" required>
+                            </label>
+                            <label>
+                                <span>Senha atual (para alterar o e-mail)</span>
+                                <input type="password" name="emailPassword" autocomplete="current-password">
                             </label>
                         </form>
                         <div class="card-footer">

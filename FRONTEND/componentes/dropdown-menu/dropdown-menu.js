@@ -49,12 +49,23 @@ function atualizarDadosUsuarioDropdown() {
     const emailEl = dropdownMenu.querySelector(".dropdown-header-text p");
 
     if (nomeEl) nomeEl.textContent = nome;
-    if (emailEl) emailEl.textContent = email;
+    if (emailEl) {
+        emailEl.textContent = "";
+        if (usuario) {
+            emailEl.textContent = email;
+        } else {
+            const loginLink = document.createElement("a");
+            loginLink.href = obterCaminhoLogin();
+            loginLink.className = "dropdown-login-link";
+            loginLink.textContent = "Entre na sua conta";
+            emailEl.appendChild(loginLink);
+        }
+    }
 
     const perfil = usuario?.perfil || localStorage.getItem("perfil");
-    const configLink = dropdownMenu.querySelector(".dropdown-header a");
+    const configLink = dropdownMenu.querySelector(".dropdown-header > a");
     if (configLink) {
-        configLink.href = perfil === "Administrador"
+        configLink.href = !usuario ? obterCaminhoLogin() : perfil === "Administrador"
             ? `${obterPrefixoPages()}admin/admin.html`
             : `${obterPrefixoPages()}account-settings/account.html`;
     }

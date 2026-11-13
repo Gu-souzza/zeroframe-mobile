@@ -44,6 +44,7 @@
             cb.checked = false;
         });
         updateCount();
+        searchFilters.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
     /* ---- accordion per category ---- */
