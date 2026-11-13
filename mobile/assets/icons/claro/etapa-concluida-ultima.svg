@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="40.5" viewBox="0 0 24 40.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Status das etapas da entrega">
+<g id="Icon Etapa bem sucedida">
+<rect width="24" height="24" rx="12" fill="#8C5A3C"/>
+<rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="black" stroke-opacity="0.25"/>
+<path id="Vector" d="M8 12L10.6667 15L16 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#F5EBE0"/>
+</g>
+<path id="Line 7" d="M12 40V26" stroke-linecap="square" stroke="#201B1B" stroke-opacity="0.8"/>
+</g>
+</svg>
