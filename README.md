@@ -1,136 +1,166 @@
-# 🛒 Zero Frame Mobile
+# 🛒 Zero Frame
 
-Aplicativo do quarto semestre integrado à API ASP.NET Core e ao banco SQL Server do Zero Frame. O site e o app usam as mesmas contas, produtos, variações, endereços, favoritos, carrinhos e pedidos.
+**Uma loja, a mesma conta no computador e no celular.**
 
-## ▶️ Abrir o site funcionando
+O Zero Frame é um projeto acadêmico de uma loja de roupas e acessórios. Este repositório reúne o site para computador, o aplicativo para Android e iPhone e a API que conecta os dois ao banco de dados.
 
-Depois de preparar o banco conforme as instruções abaixo, abra a solução `API/ZeroFrame.slnx` no Visual Studio. Defina **ZeroFrame.API** como projeto de inicialização, selecione **https** e clique no play. Com a aplicação rodando, clique no botão:
+A continuação para o quarto semestre reaproveita o site e a API em C# do terceiro semestre e integra as telas do aplicativo feitas com React Native e Expo.
 
-[![Abrir o site Zero Frame](https://img.shields.io/badge/Abrir_o_site-Zero_Frame-49312e?style=for-the-badge)](https://localhost:7291/desktop/index.html)
+## 📌 Como o projeto funciona
 
-[Abrir o site no navegador](https://localhost:7291/desktop/index.html) · [Abrir o Swagger](https://localhost:7291/swagger)
+O site e o aplicativo são duas formas de acessar a mesma loja. A API recebe as ações do usuário e consulta ou salva as informações no SQL Server.
 
-O endereço `localhost` acessa a aplicação no computador de quem clica. Cada integrante precisa iniciar a API na própria máquina para usar este botão. Para testar com um celular na mesma rede, siga a configuração de IP abaixo.
+```text
+Site no computador ──┐
+                     ├── API em C# ── Banco SQL Server
+Aplicativo no celular┘
+```
 
-## 📌 O que foi reunido
+Por exemplo: você entra na sua conta pelo computador, adiciona um produto ao carrinho e salva seu endereço. Quando entra nessa mesma conta pelo aplicativo conectado à mesma API, encontra esses dados lá também.
 
-| Pasta | Conteúdo |
+O projeto permite:
+
+- Criar uma conta e fazer login.
+- Consultar produtos, tamanhos, cores e estoque.
+- Adicionar, alterar e remover itens do carrinho.
+- Salvar endereços e produtos favoritos.
+- Registrar pedidos e consultar seu histórico.
+- Editar dados da conta e enviar mensagens de suporte.
+
+**Os dados ficam no banco, mesmo depois de sair da conta ou fechar a tela.** Para enxergar as alterações feitas no outro dispositivo, reabra a tela ou atualize a página.
+
+> Cada instalação tem seu próprio banco. Para compartilhar os dados, site e aplicativo precisam acessar a mesma API e a mesma base. Baixar o repositório não copia as contas de quem desenvolveu o projeto.
+
+## 🛠️ O que foi utilizado
+
+| Parte | Tecnologia | Função |
+| --- | --- | --- |
+| Site | HTML, CSS e JavaScript | Telas acessadas pelo navegador do computador |
+| Aplicativo | React Native, Expo e TypeScript | Telas acessadas pelo Expo Go no celular |
+| API | C# e ASP.NET Core 10 | Login, regras da loja e comunicação com o banco |
+| Banco | SQL Server e Entity Framework Core | Armazenamento e acesso aos dados |
+| Documentação da API | Swagger | Consulta e teste dos endpoints |
+| Autenticação | JWT | Identificação da conta nas chamadas à API |
+
+O site e a API vieram do [projeto do terceiro semestre](https://github.com/Gu-souzza/sistema-academico-pim-3). A interface do aplicativo veio do [projeto mobile da equipe](https://github.com/murilokkj/zeroframe-mobile-interface). Nesta integração, as telas passaram a usar a API compartilhada, com ajustes no banco, nos serviços e na navegação. [Créditos e versões de origem](docs/origem.md).
+
+## ✅ O que precisa instalar
+
+| Programa | Quando é necessário |
 | --- | --- |
-| `mobile/` | App React Native com Expo, TypeScript e telas conectadas à API |
-| `API/` | Backend C# com ASP.NET Core 10, Entity Framework Core e Swagger |
-| `FRONTEND/` | Site desktop para testar os mesmos dados |
-| `scripts/` | Configuração local da conexão e da chave JWT |
-| `tests/` | Teste HTTP de compartilhamento e autorização |
-| `docs/` | Análise do banco, contrato da API e roteiro de testes |
+| **Windows e Visual Studio 2026** | Para abrir e iniciar a API pelo botão Play |
+| **Carga de trabalho “Desenvolvimento para ASP.NET e Web” e .NET SDK 10** | Para compilar a API; selecione no Visual Studio Installer |
+| **SQL Server Express LocalDB** | Para armazenar os dados localmente; instale pelo Visual Studio Installer, em Componentes individuais |
+| **Node.js 24 com npm** | Para instalar e iniciar o aplicativo pelo Expo |
+| **Expo Go compatível com o SDK 58** | Para abrir o aplicativo no Android ou iPhone |
+| **Conta Expo** | Para entrar no Expo do computador e no Expo Go |
 
-A base veio do [projeto do terceiro semestre](https://github.com/Gu-souzza/sistema-academico-pim-3) e da [interface mobile](https://github.com/murilokkj/zeroframe-mobile-interface). Os créditos e as versões de origem estão em [docs/origem.md](docs/origem.md).
+Para testar no celular, o PC e o aparelho devem estar conectados ao mesmo roteador. O PC pode estar no cabo e o celular no Wi-Fi. O primeiro preparo também precisa de internet para baixar os pacotes.
 
-## 🛠️ Programas necessários
+## 💻 1. Iniciar a API pelo Visual Studio
 
-- Windows com PowerShell.
-- Git para baixar o projeto.
-- .NET SDK 10 para compilar e executar a API.
-- SQL Server Express LocalDB, instalado pelo Visual Studio Installer ou pelo instalador do SQL Server Express.
-- Node.js 24 com npm para executar o Expo.
-- Expo Go atualizado no celular para testar o aplicativo.
-- Visual Studio 2026 ou VS Code, opcional, para editar o código.
+**Primeira vez neste computador?** Siga antes o [guia de preparação do banco e da configuração local](docs/primeiro-acesso.md). Ele usa o Visual Studio, sem PowerShell.
 
-## ⚙️ Preparar a API e o banco
+Se o projeto já está configurado:
 
-Clone o repositório e execute na raiz:
+1. Abra a pasta do projeto e dê dois cliques em **`API/ZeroFrame.slnx`**.
+2. No Visual Studio, no **Gerenciador de Soluções**, clique com o botão direito em **ZeroFrame.API** e selecione **Definir como Projeto de Inicialização**.
+3. Na lista ao lado do botão verde de executar, selecione **https**.
+4. Clique no **Play** ou pressione **F5**. Se o Visual Studio pedir para confiar no certificado HTTPS de desenvolvimento, confirme no próprio Visual Studio.
+5. Aguarde abrir o **Swagger** no navegador. Deixe a aplicação rodando.
 
-```powershell
-git clone https://github.com/Gu-souzza/zeroframe-mobile.git
-cd zeroframe-mobile
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Configurar-Local.ps1
-dotnet tool restore
-dotnet restore API/ZeroFrame.slnx
-dotnet run --project API/ZeroFrame.API --no-launch-profile -- --atualizar-banco --catalogo-demo --verificar-banco
-```
+O Swagger mostra as operações disponíveis na API. Para usar a loja com as telas, abra o site no próximo passo.
 
-O comando cria o banco `ZeroFrameMobile`, aplica as migrations, carrega dois produtos de demonstração se o catálogo estiver vazio e compara as tabelas e colunas com o modelo da API. Cada pessoa cria a própria conta nas telas. A chave JWT é gerada no arquivo local ignorado pelo Git.
+## 🌐 2. Abrir o site
 
-Para usar uma instalação SQL Server diferente, passe a conexão ao configurar:
+Com a API rodando, clique aqui no README do GitHub:
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Configurar-Local.ps1 -Conexao 'Server=SERVIDOR;Database=ZeroFrame;Integrated Security=true;TrustServerCertificate=true'
-```
+[![Abrir o site Zero Frame](https://img.shields.io/badge/Abrir_o_site-Zero_Frame-8C5A3C?style=for-the-badge)](https://localhost:7291/desktop/index.html)
 
-Se o arquivo local já existir, edite `API/ZeroFrame.API/appsettings.Development.local.json`. Para reaproveitar contas e pedidos existentes, configure o banco que já contém esses dados e faça um backup antes de aplicar as migrations. As contas só são compartilhadas quando os dois clientes usam a mesma API e a mesma base.
+[Abrir o site](https://localhost:7291/desktop/index.html) · [Abrir o Swagger](https://localhost:7291/swagger) · [Verificar API e banco](https://localhost:7291/api/health)
 
-Inicie a API e deixe o terminal aberto:
+Entre na sua conta ou abra o menu do usuário, clique em **Entre na sua conta** e depois em **Registre-se** para criar uma.
 
-```powershell
-$env:ASPNETCORE_ENVIRONMENT = 'Development'
-dotnet run --project API/ZeroFrame.API --no-launch-profile --urls http://0.0.0.0:5140
-```
+> **Esse botão abre o site no seu computador.** O endereço `localhost` funciona enquanto a API estiver rodando na sua máquina. O site não está hospedado no GitHub: o GitHub guarda os arquivos e o link para abri-lo localmente. Clicar em `index.html` na lista de arquivos mostra o código; use o botão acima para abrir a loja.
 
-- [Swagger local](http://localhost:5140/swagger)
-- [Saúde da API e conexão do banco](http://localhost:5140/api/health)
-- [Site desktop](http://localhost:5140/desktop/index.html)
+## 📱 3. Gerar o QR code e abrir no Expo Go
 
-O perfil local usa o ambiente Development para abrir o Swagger e permitir HTTP na rede de testes. A chave e a conexão podem ser sobrescritas por variáveis de ambiente. Consulte [a configuração e o contrato](docs/api.md).
+### Deixar a API acessível ao celular
 
-## 📱 Rodar as telas do aplicativo
-
-Em outro terminal, a partir da raiz:
-
-```powershell
-cd mobile
-npm.cmd ci
-npm.cmd run web
-```
-
-O endereço da API padrão é `http://127.0.0.1:5140/api`. Abra o endereço do Expo exibido no terminal. Cadastre uma conta, escolha um produto e sua variação, salve um endereço e finalize um pedido pendente.
-
-### Testar no Android ou iPhone
-
-Conecte o celular à rede do mesmo roteador do computador e localize o IPv4 do PC com `ipconfig`. Crie `mobile/.env.local` com:
+1. No Visual Studio, pare a execução atual com **Shift + F5**.
+2. Na lista ao lado do Play, selecione **https-celular** e clique no **Play** novamente. Esse perfil mantém o site no mesmo endereço e também permite acesso HTTP à API pela rede local.
+3. No Windows, abra **Configurações → Rede e Internet → Ethernet ou Wi-Fi → Propriedades** e localize o **endereço IPv4** do computador. Exemplo: `192.168.0.23`.
+4. Na pasta **`mobile`**, crie o arquivo **`.env.local`** e coloque a linha abaixo, trocando `IP_DO_PC` pelo IPv4 que encontrou:
 
 ```dotenv
 EXPO_PUBLIC_API_URL=http://IP_DO_PC:5140/api
 ```
 
-Na pasta `mobile`, execute:
+Exemplo: `EXPO_PUBLIC_API_URL=http://192.168.0.23:5140/api`. Use o IP da sua máquina, não o do exemplo. O arquivo deve se chamar `.env.local`, sem `.txt` no final.
 
-```powershell
-npx.cmd expo start --lan
+No navegador do celular, abra `http://IP_DO_PC:5140/api/health`. Se aparecer `status: ok` e `banco: SQL Server`, o aparelho já consegue alcançar a API. Se não abrir, confira a rede, o perfil **https-celular** e a permissão de rede privada da API no Firewall do Windows.
+
+### Iniciar o Expo pelo CMD
+
+1. Abra a pasta **`mobile`** no Explorador de Arquivos.
+2. Clique na barra de endereço, digite **`cmd`** e pressione **Enter**. Isso abre o **Prompt de Comando** já nessa pasta.
+3. Na primeira vez, instale os pacotes:
+
+```cmd
+npm ci
 ```
 
-Abra o QR code com o Expo Go. No iPhone, use a Câmera para escanear e entre na mesma conta Expo no celular e no terminal do PC com `npx.cmd expo login`. Se o Windows solicitar acesso à rede privada para o servidor, configure essa permissão no seu computador.
+4. Entre na sua conta Expo:
 
-O PC precisa continuar ligado e com a API e o Expo rodando. O endereço IP deve ser atualizado no arquivo local se a rede trocar o IP do computador.
-
-## 🔄 Conferir site e celular juntos
-
-1. Crie uma conta no site e adicione um produto ao carrinho.
-2. Entre no app com o mesmo e-mail e senha.
-3. Abra o carrinho do app e confira o produto existente.
-4. Adicione outra variação no app e atualize a página do carrinho no site.
-5. Consulte **Meus pedidos** nos dois clientes.
-
-O carrinho do app recarrega ao abrir a tela e ao voltar ao primeiro plano. Para verificar mudanças enquanto a página do site permanece aberta, atualize a página. Os favoritos antigos de um navegador podem ser importados pela página de favoritos para a conta que estiver aberta.
-
-## 🧪 Verificações
-
-Com a API iniciada e um banco exclusivo de testes preparado com o catálogo de demonstração:
-
-```powershell
-node --test tests/integracao.test.mjs
-dotnet run --project API/ZeroFrame.API --no-launch-profile -- --verificar-banco
-cd mobile
-npm.cmd run typecheck
-npm.cmd run lint
+```cmd
+npx expo login
 ```
 
-O teste HTTP cria contas fictícias e pedidos, consome estoque e desativa a conta principal ao terminar. Use um banco de teste. A variável `ZEROFRAME_TEST_API` permite escolher outra URL para esse teste.
+5. Inicie o aplicativo:
 
-A análise das tabelas, das migrations e dos pontos ajustados está em [docs/analise-banco.md](docs/analise-banco.md). O [roteiro manual](docs/testes.md) orienta a demonstração pela interface.
+```cmd
+npx expo start --lan --go
+```
 
-O script [database/atualizar.sql](database/atualizar.sql) contém a sequência idempotente das migrations para revisão ou execução pelo responsável do banco.
+**O QR code aparece nessa janela do CMD.** Ele é gerado para a sessão atual; não há um QR code fixo do projeto no GitHub.
 
-## 🚧 Escopo atual
+- **iPhone:** abra a Câmera, leia o QR code e toque em **Abrir no Expo Go**.
+- **Android:** abra o Expo Go e use a opção para escanear o QR code.
+- Use a mesma conta Expo no computador e no Expo Go. Dentro do Zero Frame, entre com o **mesmo e-mail e senha que usou no site**. A conta Expo e a conta da loja são contas diferentes.
 
-O checkout registra pedidos pendentes e atualiza o estoque no SQL Server. O frete segue a regra percentual existente na API desktop. A cotação de transportadoras por CEP e a recuperação de senha por e-mail ainda precisam de implementação. As mensagens de suporte ficam registradas no banco para atendimento posterior.
+Deixe **a API rodando no Visual Studio e o Expo aberto no CMD** durante o teste. Se o Windows solicitar acesso à rede, permita na rede privada usada no teste. Se mudar o IP do PC, atualize `.env.local` e reinicie o Expo. Um QR code que abre as telas não garante sozinho que a API está acessível; confira também o endereço de saúde acima.
 
-Este repositório reúne o código para teste local da equipe. Os dados particulares de bancos usados pelos integrantes precisam ser localizados e migrados caso devam aparecer em uma única instalação.
+As orientações de QR code e conexão seguem a [documentação do Expo](https://docs.expo.dev/get-started/start-developing/).
+
+## 🔄 4. Conferir se os dados estão compartilhados
+
+1. Entre no site e adicione um produto ao carrinho. Salve também um endereço.
+2. Abra o aplicativo e entre com a mesma conta da loja.
+3. Confira o carrinho e os endereços.
+4. Adicione outro produto pelo celular e atualize a página do carrinho no computador.
+5. Saia da conta, entre novamente e confira que as informações continuam salvas.
+
+Esse compartilhamento já foi confirmado em teste manual de computador para iPhone neste projeto. A configuração de rede de cada integrante ainda precisa estar correta.
+
+## 📂 Onde encontrar cada parte
+
+| Pasta | Conteúdo |
+| --- | --- |
+| [`API`](API) | API C#, solução do Visual Studio e acesso ao SQL Server |
+| [`FRONTEND`](FRONTEND) | Telas do site |
+| [`mobile`](mobile) | Aplicativo Expo |
+| [`docs`](docs) | Guias e documentação técnica |
+| [`database`](database) | Script SQL das atualizações do banco |
+| [`tests`](tests) | Verificações automatizadas |
+
+## 📖 Documentação complementar
+
+- [Primeira configuração pelo Visual Studio](docs/primeiro-acesso.md)
+- [Rotas e configuração da API](docs/api.md)
+- [Análise e ajustes do banco](docs/analise-banco.md)
+- [Roteiro de testes](docs/testes.md)
+- [Revisão dos links e botões do site](docs/revisao-navegacao.md)
+
+## 🚧 O que ainda está limitado
+
+Este é um ambiente de teste local da equipe. O checkout registra pedidos pendentes e atualiza o estoque; não processa pagamentos reais. O frete usa a regra percentual existente na API, sem cotação de transportadora por CEP. A recuperação de senha por e-mail ainda não está implementada. As mensagens de suporte ficam registradas no banco para atendimento posterior.
