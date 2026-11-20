@@ -43,7 +43,7 @@ O exemplo usa o LocalDB do Windows e cria um banco chamado `ZeroFrameMobile`. Se
 
 1. Na lista ao lado do Play, selecione **Preparar banco**.
 2. Clique no **Play**.
-3. Aguarde a execução terminar. Esse perfil aplica as atualizações do banco, adiciona dois produtos de demonstração **apenas se o catálogo estiver vazio** e confere as tabelas e colunas.
+3. Aguarde a execução terminar. Esse perfil aplica as atualizações do banco, incluindo o histórico de estoque, a trigger e as procedures, adiciona dois produtos de demonstração **apenas se o catálogo estiver vazio** e confere a estrutura. A versão atual verifica **15 tabelas e 97 colunas**, a trigger habilitada e as três procedures.
 4. Se tudo der certo, a execução encerra sem abrir o site. Isso é esperado: esse perfil prepara o banco e termina.
 5. Se houver uma exceção ou erro de conexão, consulte a janela **Saída/Output** antes de continuar.
 

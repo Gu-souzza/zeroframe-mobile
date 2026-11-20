@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Include="../../database/rotinas/estoque-e-pedidos.sql" LogicalName="ZeroFrame.Sql.RotinasEstoque20261120.sql" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.21" />
 		<ProjectReference Include="..\ZeroFrame.Domain\ZeroFrame.Domain.csproj" />
 	</ItemGroup>

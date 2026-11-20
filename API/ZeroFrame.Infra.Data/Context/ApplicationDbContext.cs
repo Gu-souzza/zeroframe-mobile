@@ -30,11 +30,21 @@ namespace ZeroFrame.Infra.Data.Context
         public DbSet<Favorito> Favoritos { get; set; }
         public DbSet<BuscaRecente> BuscasRecentes { get; set; }
         public DbSet<MensagemSuporte> MensagensSuporte { get; set; }
+        public DbSet<HistoricoEstoque> HistoricoEstoque { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<HistoricoEstoque>(entity =>
+            {
+                entity.HasKey(item => item.Id);
+                entity.Property(item => item.DataAlteracao).HasColumnType("datetime")
+                    .HasDefaultValueSql("GETUTCDATE()");
+                entity.HasIndex(item => new { item.VariacaoProdutoId, item.DataAlteracao });
+                entity.HasOne<VariacaoProdutos>().WithMany().HasForeignKey(item => item.VariacaoProdutoId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<MensagemSuporte>(entity =>
             {
                 entity.HasKey(item => item.Id);

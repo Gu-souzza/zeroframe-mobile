@@ -52,7 +52,19 @@ public static class AuditoriaBanco
                 throw new InvalidOperationException(
                     "Diferenças de estrutura. Modelo: " + string.Join("; ", faltantes) +
                     ". Banco: " + string.Join("; ", extras));
+            await leitor.CloseAsync();
+            comando.CommandText = """
+                SELECT COUNT(*) FROM sys.objects o
+                WHERE o.schema_id = SCHEMA_ID('dbo') AND
+                    (o.type = 'P' AND o.name IN ('sp_CancelarPedido', 'sp_FinalizarPedidoAPartirDoCarrinho', 'sp_ObterCategoriasComContagem')
+                     OR o.type = 'TR' AND o.name = 'trg_AuditoriaEstoque'
+                        AND o.parent_object_id = OBJECT_ID('dbo.variacaoprodutos')
+                        AND EXISTS (SELECT 1 FROM sys.triggers t WHERE t.object_id = o.object_id AND t.is_disabled = 0))
+                """;
+            if (Convert.ToInt32(await comando.ExecuteScalarAsync()) != 4)
+                throw new InvalidOperationException("A trigger de estoque ou as três procedures estão ausentes/desabilitadas. Revise a atualização do banco.");
             Console.WriteLine($"Banco conectado. {esperadas.Select(item => item.Tabela).Distinct().Count()} tabelas e {esperadas.Count} colunas conferidas com o modelo.");
+            Console.WriteLine("Trigger de auditoria habilitada e três procedures instaladas.");
         }
         finally { await banco.Database.CloseConnectionAsync(); }
     }

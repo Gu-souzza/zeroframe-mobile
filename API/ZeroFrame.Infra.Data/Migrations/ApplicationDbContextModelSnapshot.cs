@@ -205,6 +205,35 @@ namespace ZeroFrame.Infra.Data.Migrations
                     b.ToTable("Favoritos");
                 });
 
+            modelBuilder.Entity("ZeroFrame.Domain.Entidades.HistoricoEstoque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataAlteracao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("QuantidadeAnterior")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeNova")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VariacaoProdutoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VariacaoProdutoId", "DataAlteracao");
+
+                    b.ToTable("HistoricoEstoque");
+                });
+
             modelBuilder.Entity("ZeroFrame.Domain.Entidades.ItemCarrinho", b =>
                 {
                     b.Property<int>("Id")
@@ -538,7 +567,12 @@ namespace ZeroFrame.Infra.Data.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("variacaoprodutos");
+                    b.ToTable("variacaoprodutos", null, t =>
+                        {
+                            t.HasTrigger("trg_AuditoriaEstoque");
+                        });
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("ZeroFrame.Domain.Entidades.AvaliacaoProduto", b =>
@@ -602,6 +636,15 @@ namespace ZeroFrame.Infra.Data.Migrations
                     b.HasOne("ZeroFrame.Domain.Entidades.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ZeroFrame.Domain.Entidades.HistoricoEstoque", b =>
+                {
+                    b.HasOne("ZeroFrame.Domain.Entidades.VariacaoProdutos", null)
+                        .WithMany()
+                        .HasForeignKey("VariacaoProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

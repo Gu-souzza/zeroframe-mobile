@@ -153,11 +153,20 @@ Esse compartilhamento já foi confirmado em teste manual de computador para iPho
 | [`database`](database) | Script SQL das atualizações do banco |
 | [`tests`](tests) | Verificações automatizadas |
 
+## 🗃️ Atualização do banco: estoque e procedures
+
+O complemento SQL da equipe foi adaptado à API. Ele registra automaticamente mudanças de estoque e acrescenta procedures de compra, cancelamento e consulta de categorias. A instalação é feita pelo perfil **Preparar banco** do Visual Studio, sem executar o arquivo original manualmente.
+
+**Já usa uma base com dados?** Confira a conexão e faça backup antes de atualizar. [Veja o que mudou, como instalar e como testar](database/README.md).
+
+O histórico pode ser consultado por administradores no Swagger. A compra do site/app continua passando pela API, inclusive para itens selecionados no carrinho.
+
 ## 📖 Documentação complementar
 
 - [Primeira configuração pelo Visual Studio](docs/primeiro-acesso.md)
 - [Rotas e configuração da API](docs/api.md)
 - [Análise e ajustes do banco](docs/analise-banco.md)
+- [Novo complemento SQL: histórico, trigger e procedures](database/README.md)
 - [Roteiro de testes](docs/testes.md)
 - [Revisão dos links e botões do site](docs/revisao-navegacao.md)
 

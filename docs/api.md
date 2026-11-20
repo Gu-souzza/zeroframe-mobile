@@ -68,3 +68,12 @@ Erros são exibidos no app a partir da mensagem retornada pela API. O projeto he
 | EXPO_PUBLIC_API_URL | URL da API no app, incluindo /api |
 
 O arquivo `appsettings.Development.local.json` é local e ignorado pelo Git. Variáveis de ambiente têm prioridade sobre ele.
+
+
+## Histórico de estoque (administrador)
+
+`GET /api/variacoes/{variacaoId}/historico-estoque?pageNumber=1&pageSize=10`
+
+Exige JWT de administrador. Retorna `items`, `totalItems`, `pageNumber`, `pageSize`, `totalPages`, `hasPreviousPage` e `hasNextPage`. Cada item contém `id`, `variacaoProdutoId`, `quantidadeAnterior`, `quantidadeNova` e `dataAlteracao` (UTC), em ordem de ID decrescente. Sem autenticação retorna 401; cliente comum recebe 403; variação inexistente recebe 404.
+
+A tabela é preenchida pela trigger `trg_AuditoriaEstoque`, e não por uma requisição de gravação do cliente. Instale-a pelo perfil **Preparar banco**. As procedures SQL são rotinas administrativas opcionais; os endpoints de compra/cancelamento continuam executando os serviços C#. Consulte o [guia do banco](../database/README.md).

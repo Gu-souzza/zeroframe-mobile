@@ -12,6 +12,12 @@ namespace ZeroFrame.Infra.Data.EntityConfiguracao
     {
         public void Configure(EntityTypeBuilder<VariacaoProdutos> builder)
         {
+            // SQL Server não permite OUTPUT direto em tabelas com triggers habilitadas.
+            builder.ToTable("variacaoprodutos", table =>
+            {
+                table.HasTrigger("trg_AuditoriaEstoque");
+                table.UseSqlOutputClause(false);
+            });
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Tamanho)

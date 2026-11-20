@@ -1,5 +1,7 @@
 # Análise da API e do banco
 
+> Atualização de 20/11/2026: o complemento de estoque enviado pela equipe foi integrado e validado em bases isoladas. O modelo atual tem **15 tabelas e 97 colunas**, uma trigger de auditoria e três procedures. Veja a [análise do complemento e as instruções de atualização](../database/README.md). O texto abaixo preserva a análise da versão anterior.
+
 Análise realizada em 13/11/2026 com os arquivos publicados e uma instalação SQL Server LocalDB de validação. A versão publicada na main do desktop continuava em `512cfa5`. A estrutura nova foi comparada com as migrations e testada em uma base isolada.
 
 ## Material disponível

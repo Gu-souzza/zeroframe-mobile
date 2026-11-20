@@ -11,8 +11,8 @@ namespace ZeroFrame.Infra.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql("""
-                IF EXISTS (SELECT 1 FROM enderecos WHERE EnderecoId IS NOT NULL)
-                    THROW 51000, 'A coluna legada EnderecoId contém valores. Revise esses vínculos antes de atualizar.', 1;
+                EXEC(N'IF EXISTS (SELECT 1 FROM enderecos WHERE EnderecoId IS NOT NULL)
+                    THROW 51000, ''A coluna legada EnderecoId contém valores. Revise esses vínculos antes de atualizar.'', 1;');
                 """);
             migrationBuilder.DropForeignKey("FK_enderecos_enderecos_EnderecoId", "enderecos");
             migrationBuilder.DropIndex("IX_enderecos_EnderecoId", "enderecos");
